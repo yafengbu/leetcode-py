@@ -36,4 +36,7 @@ if __name__ == '__main__':
         print(param, '->', eg.rob(param))
 
 # 解题思路
+# 列表不相邻元素，求和最大值
+# [1, 2, 3, 4] -> 6
+
 # 参考：https://algo.itcharge.cn/Solutions/0100-0199/house-robber/

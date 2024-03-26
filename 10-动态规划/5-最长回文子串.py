@@ -41,4 +41,7 @@ if __name__ == '__main__':
         print(param, '->', eg.longestPalindrome(param))
 
 # 解题思路
+# 'babad' -> 'bab'
+# 'ab' -> 'a'
+
 # 参考： https://algo.itcharge.cn/Solutions/0001-0099/longest-palindromic-substring/
