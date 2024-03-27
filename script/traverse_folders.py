@@ -82,7 +82,7 @@ if __name__ == '__main__':
     # print()
 
     path = cur_dir_before
-    ignore_path = ['.git', 'script', 'interview', '.gitignore', 'README.md', 'note.txt', 'demo.py']
+    ignore_path = ['.git', 'script', 'interview', '.gitignore', 'README.md', 'me.txt', 'note.txt', 'demo.py']
 
     # traverse_folders_with_listdir(path, ignore_path)
     files2 = traverse_folders_with_walk(path, ignore_path)
@@ -120,4 +120,5 @@ if __name__ == '__main__':
         # print('\n', al, ':')
         print(f'\n{al}:')
         for f in sorted(al_file, key=extract_number):
-            print(f"\t{f.replace('.py', '')}")
+            whitespace = '    '  # 4个空格
+            print(f"{whitespace}{f.replace('.py', '')}")
