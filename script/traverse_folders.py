@@ -99,9 +99,6 @@ if __name__ == '__main__':
             algor_dict[algor] = []
         algor_dict[algor].append(algor_file)
     print('algor_dict:::', algor_dict)
-    sorted_algor = sorted(algor_dict.items(), key=lambda item: extract_number(item[0]))  # 按键排序（提取字符串中的数字）
-    print('sorted_algor::', sorted_algor)
-    # print()
     for al, al_file in algor_dict.items():
         # al_file.sort(reverse=True)  # 排序（默认：升序）
         # print(al, ':', al_file)
@@ -114,3 +111,13 @@ if __name__ == '__main__':
     # print(sorted_algor_tuples)
     # d = {k: v for k, v in sorted_algor_tuples}
     # print(d)
+
+    # 按键排序（提取字符串中的数字）
+    print('\n===========按键排序（提取字符串中的数字）===========')
+    sorted_algor = sorted(algor_dict.items(), key=lambda item: extract_number(item[0]))
+    # print('sorted_algor::', sorted_algor)
+    for al, al_file in sorted_algor:
+        # print('\n', al, ':')
+        print(f'\n{al}:')
+        for f in sorted(al_file, key=extract_number):
+            print(f"\t{f.replace('.py', '')}")
