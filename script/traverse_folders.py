@@ -27,13 +27,14 @@ def traverse_folders_with_listdir(path: str, ignore_path: str) -> None:
                 traverse_folders_with_listdir(file_path, '')
 
 
-def traverse_folders_with_walk(path: str, ignore_path: str) -> None:
+def traverse_folders_with_walk(path: str, ignore_path: str) -> list:
     # 用 os.walk 遍历【优雅】
     paths = os.walk(path)
 
     ignore_path_list = [os.path.join(path, i) for i in ignore_path]
     # print(ignore_path_list, '\n\n')
 
+    file_list = []
     for root, dir_lst, file_lst in paths:
         # print(root, dir_lst, file_lst)
         if root in ignore_path_list:
@@ -49,10 +50,12 @@ def traverse_folders_with_walk(path: str, ignore_path: str) -> None:
         for file_name in file_lst:
             file_path = os.path.join(root, file_name)
             if root not in ignore_path_list and file_path not in ignore_path_list:
-                print(root, '\t\t', file_name, '\t\t', file_path)
+                # print(root, '\t\t', file_name, '\t\t', file_path)
+                file_list.append(file_path)
+    return file_list
 
 
-def traverse_folders_with_scandir(path: str) -> None:
+def traverse_folders_with_scandir(path: str) -> tuple:
     # 用 os.scandir 遍历【高效，但不遍历子目录】
     dirs = []
     files = []
@@ -63,8 +66,9 @@ def traverse_folders_with_scandir(path: str) -> None:
         elif item.is_file():
             files.append(item.path)
 
-    print('dirs::', dirs)
-    print('files::', files)
+    # print('dirs::', dirs)
+    # print('files::', files)
+    return dirs, files
 
 
 if __name__ == '__main__':
@@ -77,10 +81,33 @@ if __name__ == '__main__':
     # print()
 
     path = cur_dir_before
-    ignore_path = ['.git', '12-script', 'interview', '.gitignore', 'README.md', 'note.txt', 'demo.py']
+    ignore_path = ['.git', 'script', 'interview', '.gitignore', 'README.md', 'note.txt', 'demo.py']
 
-    traverse_folders_with_listdir(path, ignore_path)
+    # traverse_folders_with_listdir(path, ignore_path)
+    files2 = traverse_folders_with_walk(path, ignore_path)
+    # dirs, files3 = traverse_folders_with_scandir(path)
+
+    # 组装一下算法，以及对应的题目
+    algor_dict = {}
+    for f in files2:
+        tmp = f.split('/')
+        algor = tmp[-2]
+        algor_file = tmp[-1]
+        # print(f, '\t', algor, algor_file)
+        if algor not in algor_dict.keys():
+            algor_dict[algor] = []
+        algor_dict[algor].append(algor_file)
+    print('algor_dict:::', algor_dict)
     # print()
-    # traverse_folders_with_walk(path, ignore_path)
-    # print()
-    # traverse_folders_with_scandir(path)
+    for al, al_file in algor_dict.items():
+        # al_file.sort(reverse=True)  # 排序（默认：升序）
+        # print(al, ':', al_file)
+        print('\n', al, ':')
+        for f in al_file:
+            print('\t', f.replace('.py', ''))
+
+    # algor_dict 按键排序
+    # sorted_algor_tuples = sorted(algor_dict.items())
+    # print(sorted_algor_tuples)
+    # d = {k: v for k, v in sorted_algor_tuples}
+    # print(d)
