@@ -8,6 +8,7 @@
 '''
 
 import os
+from utils import extract_number
 
 
 def traverse_folders_with_listdir(path: str, ignore_path: str) -> None:
@@ -98,6 +99,8 @@ if __name__ == '__main__':
             algor_dict[algor] = []
         algor_dict[algor].append(algor_file)
     print('algor_dict:::', algor_dict)
+    sorted_algor = sorted(algor_dict.items(), key=lambda item: extract_number(item[0]))  # 按键排序（提取字符串中的数字）
+    print('sorted_algor::', sorted_algor)
     # print()
     for al, al_file in algor_dict.items():
         # al_file.sort(reverse=True)  # 排序（默认：升序）
