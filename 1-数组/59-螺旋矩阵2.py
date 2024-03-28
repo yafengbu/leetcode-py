@@ -19,6 +19,10 @@ class Solution:
         up, right, down, left = 0, n-1, n-1, 0
         number = 1  # 需要填充的数字
 
+        # 临界处理
+        if n == 1:
+            return [[1]]
+
         while left < right and up < down:
             # 从左到右
             for i in range(left, right):
