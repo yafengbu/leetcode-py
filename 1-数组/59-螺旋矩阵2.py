@@ -58,13 +58,56 @@ class Solution:
 
         return matrix
 
+    def getnerateMatrix2(self, n: int) -> List[List[int]]:
+        # 构建一个 n×n 大小的数组存储结果
+        matrix = [[0 for _ in range(n)] for _ in range(n)]
+        # 初始边界
+        up, right, down, left = 0, n-1, n-1, 0
+        number = 1  # 需要填充的数字
+
+        while True:
+            # 从左到右
+            for i in range(left, right+1):
+                matrix[up][i] = number
+                number += 1
+            up += 1  # 缩小边界
+            if up > down:
+                break
+
+            # 从上到下
+            for i in range(up, down+1):
+                matrix[i][right] = number
+                number += 1
+            right -= 1  # 缩小边界
+            if right < left:
+                break
+
+            # 从右到左
+            for i in range(right, left-1, -1):
+                matrix[down][i] = number
+                number += 1
+            down -= 1  # 缩小边界
+            if down < up:
+                break
+
+            # 从下到上
+            for i in range(down, up-1, -1):
+                matrix[i][left] = number
+                number += 1
+            left += 1  # 缩小边界
+            if left > right:
+                break
+
+        return matrix
+
 
 if __name__ == '__main__':
     eg = Solution()
     # 测试
     param_test = [3, 1, 4, 5]
     for param in param_test:
-        res = eg.getnerateMatrix(param)
+        # res = eg.getnerateMatrix(param)
+        res = eg.getnerateMatrix2(param)
         print('\n', param, '->', res)
         for row in res:
             for i in row:
